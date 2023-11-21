@@ -5,7 +5,7 @@ const getProductoById = async (req, res) => {
     try {
         const {id} = req.params;
         const response = await Product.findOne({ 
-            where: { id }});
+            where: { id: id }});
 
         if (response){
             return res.status(200).json(response);
