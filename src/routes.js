@@ -1,11 +1,12 @@
 const { Router } = require('express');
-const getProductoById = require('./controllers/productController');
+const { getAllProducts, getProductoById, postProducto, deleteById } = require('./controllers/productController');
 const deleteById = require('./controllers/deleteController');
 const postProducto = require('./controllers/postProductController');
 
 const router = Router();
 
 
+router.get('/products', getAllProducts);
 router.get('/producto/:id', getProductoById);
 router.post('/register', postUser);
 router.post('/login', loginControler);
