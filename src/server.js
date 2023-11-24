@@ -1,16 +1,36 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const router = require('./routes');
+import express from 'express';
+import morgan from 'morgan';
+import {
+    categoriasRouter,
+    emisorasDeTarjetasRouter,
+    entidadesFinancierasRouter,
+    rolesRouter,
+    tiposDePagoRouter,
+    subCategoriasRouter,
+    formasDePagoRouter,
+    usuariosRouter,
+    ordenesRouter,
+    productosRouter,
+    usuariosDireccionesRouter,
+    ordenesProductosRouter
+} from './routes'
 
-const server = express();
-server.use(express.json());
+const app = express();
 
-server.use(router);
+app.use('/categorias', categoriasRouter);
+app.use('/emisoras-de-tarjetas', emisorasDeTarjetasRouter);
+app.use('/entidades-financieras', entidadesFinancierasRouter);
+app.use('/roles', rolesRouter);
+app.use('/tipos-de-pago', tiposDePagoRouter);
 
-server.use(express.json());
-server.use(cors());
-server.use(morgan("dev"));
-server.use(router);
+app.use('/subcategorias', subCategoriasRouter);
+app.use('/formas-de-pago', formasDePagoRouter);
+app.use('/usuarios', usuariosRouter);
 
-module.exports = server;
+app.use('/ordenes', ordenesRouter);
+app.use('/productos', productosRouter);
+app.use('/usuarios-direcciones', usuariosDireccionesRouter);
+
+app.use('/ordenes-productos', ordenesProductosRouter);
+
+export default app;
