@@ -1,11 +1,16 @@
 import { createConnection } from '../database/Connection.js'
 
-const ERROR_UNIQUE_KEY = '23505';
+const ERROR_UNIQUE_KEY_EXISTS = '23505';
 
 const db = await createConnection();
 
 const getAll = async (request, response) => {
-    const result = await db.query('SELECT * FROM categorias');
+    const query = {
+        name: 'get-categories',
+        text: 'SELECT * FROM categorias'
+    };
+
+    const result = await db.query(query);
 
     response
         .status(200)
@@ -30,15 +35,24 @@ const getOne = async (request, response) => {
         return;
     }
 
-    response.send(result.rows[0], 200);
+    response
+        .status(200)
+        .send(result.rows[0]);
 };
 
 const create = async (request, response) => {
     const { nombre } = request.body;
 
+    if (!nombre) {
+        response
+            .status(400)
+            .send(JSON.stringify({ mensaje: 'Faltan datos para crear la categoría.' }));
+        return;
+    }
+
     const query = {
         name: 'create-category',
-        text: 'INSERT INTO categorias (nombre) VALUES ( $1 )',
+        text: 'INSERT INTO categorias (nombre) VALUES ($1)',
         values: [ nombre ]
     };
 
@@ -47,15 +61,15 @@ const create = async (request, response) => {
     try {
         result = await db.query(query);
     } catch (exception) {
-        if (exception.code === ERROR_UNIQUE_KEY) {
+        if (exception.code === ERROR_UNIQUE_KEY_EXISTS) {
             response
-                .status(400)
+                .status(500)
                 .send(JSON.stringify({ mensaje: exception.detail }));
             return;
         }
 
         response
-            .status(400)
+            .status(500)
             .send(JSON.stringify({ mensaje: 'Ocurrió un error al crear la categoría.' }));
         return;
     }
@@ -88,9 +102,16 @@ const update = async (request, response) => {
     const { id } = request.params;
     const { nombre } = request.body;
 
+    if (!nombre) {
+        response
+            .status(400)
+            .send(JSON.stringify({ mensaje: 'Faltan datos para actualizar la categoría.' }));
+        return;
+    }
+
     const query = {
         name: 'update-category',
-        text: 'UPDATE categorias SET nombre = $2 WHERE id_categoria = $1 RETURNING id_categoria, nombre',
+        text: 'UPDATE categorias SET nombre = $2 WHERE id_categoria = $1',
         values: [ id, nombre ]
     };
 
@@ -99,15 +120,15 @@ const update = async (request, response) => {
     try {
         result = await db.query(query);
     } catch (exception) {
-        if (exception.code === ERROR_UNIQUE_KEY) {
+        if (exception.code === ERROR_UNIQUE_KEY_EXISTS) {
             response
-                .status(400)
+                .status(500)
                 .send(JSON.stringify({ mensaje: exception.detail }));
             return;
         }
 
         response
-            .status(400)
+            .status(500)
             .send(JSON.stringify({ mensaje: 'Ocurrió un error al actualizar la categoría.' }));
         return;
     }
@@ -119,6 +140,7 @@ const update = async (request, response) => {
         return;
     }
 
+    // si se llega a remover el id de la query, podemos tener problemas...
     if (result.rowCount > 1) {
         response
             .status(500)
@@ -131,9 +153,7 @@ const update = async (request, response) => {
         return;
     }
 
-    response
-        .status(200)
-        .send(JSON.stringify(result.rows[0]));
+    response.status(204).send();
 };
 
 export default {
