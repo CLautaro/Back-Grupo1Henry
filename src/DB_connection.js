@@ -4,7 +4,7 @@ const CategoryFunction = require("./models/Category");
 const SubCategoryFunction = require("./models/SubCategory");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_BDD } = process.env;
-const ProductModel = require('./models/Product');
+const ProductModel = require('./models/productModel');
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_BDD}`,
@@ -13,8 +13,9 @@ const sequelize = new Sequelize(
 
 CategoryFunction(sequelize);
 SubCategoryFunction(sequelize);
+ProductModel(sequelize);
 
-const { Categoria, SubCategoria } = sequelize.models;
+const { Categoria, SubCategoria, Product } = sequelize.models;
 
 Categoria.hasMany(SubCategoria, {
   foreignKey: "id_categoria",
@@ -25,9 +26,12 @@ SubCategoria.belongsTo(Categoria, {
   onUpdate: "CASCADE",
 });
 
+Product.belongsTo(Categoria);
+Categoria.hasMany(Product);
+
 module.exports = {
-  User,
-  Favorite,
+  // User,
+  // Favorite,
   ...sequelize.models,
   conn: sequelize,
 };
