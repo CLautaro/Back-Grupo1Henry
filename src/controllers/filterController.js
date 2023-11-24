@@ -1,11 +1,11 @@
-const { Product } = require('../DB_connection');
+const { Product, Category } = require('../DB_connection');
 const { Op } = require('sequelize');
 
 
 const getProductByCategory = async (req, res) => {
     try {
         const { category } = req.params;
-        const filteredProduct = await Product.findAll({
+        const filteredProduct = await Category.findAll({
             where: { category },
         });
         return res.status(200).json(filteredProduct);
