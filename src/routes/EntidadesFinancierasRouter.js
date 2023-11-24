@@ -1,5 +1,5 @@
 import express from 'express';
-import EntidadesFinancierasController from '../controllers/EntidadesFinancierasController';
+import EntidadesFinancierasController from '../controllers/EntidadesFinancierasController.js';
 
 const router = express.Router();
 

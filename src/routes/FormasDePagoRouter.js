@@ -1,5 +1,5 @@
 import express from 'express';
-import FormasDePagoController from '../controllers/FormasDePagoController';
+import FormasDePagoController from '../controllers/FormasDePagoController.js';
 
 const router = express.Router();
 
