@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import {
     categoriasRouter,
     emisorasDeTarjetasRouter,
@@ -18,6 +19,8 @@ import {
 const app = express();
 
 app.use(express.json());
+app.use(cors());
+app.use(morgan('dev'));
 
 app.use('/categorias', categoriasRouter);
 app.use('/emisoras-de-tarjetas', emisorasDeTarjetasRouter);
