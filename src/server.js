@@ -17,6 +17,8 @@ import {
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/categorias', categoriasRouter);
 app.use('/emisoras-de-tarjetas', emisorasDeTarjetasRouter);
 app.use('/entidades-financieras', entidadesFinancierasRouter);
