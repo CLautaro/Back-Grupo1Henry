@@ -13,7 +13,7 @@ import {
     productosRouter,
     usuariosDireccionesRouter,
     ordenesProductosRouter
-} from './routes'
+} from './routes/index.js'
 
 const app = express();
 

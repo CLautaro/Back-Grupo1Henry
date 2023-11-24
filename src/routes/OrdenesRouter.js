@@ -1,5 +1,5 @@
 import express from 'express';
-import OrdenesController from '../controllers/OrdenesController';
+import OrdenesController from '../controllers/OrdenesController.js';
 
 const router = express.Router();
 

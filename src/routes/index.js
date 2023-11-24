@@ -1,18 +1,18 @@
-import categoriasRouter from './CategoriasRouter';
-import emisorasDeTarjetasRouter from './EmisorasDeTarjetasRouter';
-import entidadesFinancierasRouter from './EntidadesFinancierasRouter';
-import rolesRouter from './RolesRouter';
-import tiposDePagoRouter from './TiposDePagoRouter';
+import categoriasRouter from './CategoriasRouter.js';
+import emisorasDeTarjetasRouter from './EmisorasDeTarjetasRouter.js';
+import entidadesFinancierasRouter from './EntidadesFinancierasRouter.js';
+import rolesRouter from './RolesRouter.js';
+import tiposDePagoRouter from './TiposDePagoRouter.js';
 
-import formasDePagoRouter from './FormasDePagoRouter';
-import subCategoriasRouter from './SubCategoriasRouter';
-import usuariosRouter from './UsuariosRouter';
+import formasDePagoRouter from './FormasDePagoRouter.js';
+import subCategoriasRouter from './SubCategoriasRouter.js';
+import usuariosRouter from './UsuariosRouter.js';
 
-import ordenesRouter from './OrdenesRouter';
-import productosRouter from './ProductosRouter';
-import usuariosDireccionesRouter from './UsuariosDireccionesRouter';
+import ordenesRouter from './OrdenesRouter.js';
+import productosRouter from './ProductosRouter.js';
+import usuariosDireccionesRouter from './UsuariosDireccionesRouter.js';
 
-import ordenesProductosRouter from './OrdenesProductosRouter';
+import ordenesProductosRouter from './OrdenesProductosRouter.js';
 
 export {
     categoriasRouter,

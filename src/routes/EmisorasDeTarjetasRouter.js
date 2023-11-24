@@ -1,5 +1,5 @@
 import express from 'express';
-import EmisorasDeTarjetasController from '../controllers/EmisorasDeTarjetasController';
+import EmisorasDeTarjetasController from '../controllers/EmisorasDeTarjetasController.js';
 
 const router = express.Router();
 
