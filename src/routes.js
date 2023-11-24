@@ -1,7 +1,7 @@
 const { Router } = require("express");
-// const { getAllProducts, getProductoById, postProducto, deleteById } = require('./controllers/productController');
-// const deleteById = require('./controllers/deleteController');
-// const postProducto = require('./controllers/postProductController');
+const { getAllProducts, getProductoById, postProducto, deleteById } = require('./controllers/productController');
+const deleteById = require('./controllers/deleteController');
+const postProducto = require('./controllers/postProductController');
 const {
   getAllCategorys,
   modifyCategorys,
@@ -14,12 +14,12 @@ const {
 
 const router = Router();
 
-// router.get('/products', getAllProducts);
-// router.get('/producto/:id', getProductoById);
-// router.post('/register', postUser);
-// router.post('/login', loginControler);
-// router.delete('/delete', deleteById);
-// router.post('/productos', postProducto);
+router.get('/products', getAllProducts);
+router.get('/producto/:id', getProductoById);
+router.post('/register', postUser);
+router.post('/login', loginControler);
+router.delete('/delete', deleteById);
+router.post('/productos', postProducto);
 
 router.get("/categorys", getAllCategorys);
 router.put("/categorys/:id", modifyCategorys);

@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "Categoria", // Aquí se refiere al nombre de la tabla en la base de datos
+        model: "Categoria", 
         key: "id_categoria",
       },
       onUpdate: "CASCADE",

@@ -4,7 +4,7 @@ const CategoryFunction = require("./models/Category");
 const SubCategoryFunction = require("./models/SubCategory");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_BDD } = process.env;
-// const ProductModel = require('./models/Product');
+const ProductModel = require('./models/Product');
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_BDD}`,
@@ -26,8 +26,8 @@ SubCategoria.belongsTo(Categoria, {
 });
 
 module.exports = {
-  // User,
-  // Favorite,
+  User,
+  Favorite,
   ...sequelize.models,
   conn: sequelize,
 };
