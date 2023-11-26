@@ -14,12 +14,14 @@ const {
 
 const router = Router();
 
-router.get('/products', getAllProducts);
+router.get('/productos', getAllProducts);
 router.get('/producto/:id', getProductoById);
-// router.post('/register', postUser);
-// router.post('/login', loginControler);
+// router.post('/register', );
+// router.post('/login', );
 router.delete('/delete', deleteById);
-router.post('/productos', postProducto);
+router.post('/product', postProducto);
+router.get('/productos/:category', getProductByCategory);    // filtrado de productos por categoria 
+router.get('/productos/:minPrice/:maxPrice', getProductByPrice);    // filtrado por precio min. / max. 
 
 router.get("/categorys", getAllCategorys);
 router.put("/categorys/:id", modifyCategorys);
