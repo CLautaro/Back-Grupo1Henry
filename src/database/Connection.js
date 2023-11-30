@@ -5,7 +5,8 @@ const {
     DB_HOST,
     DB_NAME,
     DB_USER,
-    DB_PASS
+    DB_PASS,
+    DB_SCHEMA
 } = process.env;
 
 const { Client } = pg;
@@ -19,7 +20,11 @@ const createConnection = async () => {
     });
 
     await client.connect();
-     
+
+    if ( DB_SCHEMA ) {
+        await client.query(`SET search_path TO ${DB_SCHEMA}`);
+    }
+
     return client;
 };
 
