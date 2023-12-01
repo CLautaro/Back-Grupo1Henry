@@ -80,7 +80,7 @@ const create = async (request, response) => {
 
         response
             .status(500)
-            .send(JSON.stringify({ mensaje: 'Ocurrió un error al crear el producto.', exception }));
+            .send(JSON.stringify({ mensaje: 'Ocurrió un error al crear el producto.', error: exception.message }));
         return;
     }
     response.status(201).send();
@@ -132,7 +132,7 @@ const update = async (request, response) => {
     };
 
     let result;
-    
+     
     try {
         result = await db.query(query);
     } catch (exception) {
@@ -171,6 +171,8 @@ const update = async (request, response) => {
 
     response.status(204).send();
 };
+
+
 
 export default {
     getAll,

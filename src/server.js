@@ -15,6 +15,7 @@ import {
     ordenesRouter,
     productosRouter,
     usuariosDireccionesRouter,
+    productosFilterRouter,
     ordenesProductosRouter
 } from './routes/index.js'
 
@@ -73,6 +74,8 @@ app.use('/usuarios', usuariosRouter);
 app.use('/ordenes', ordenesRouter);
 app.use('/productos', productosRouter);
 app.use('/usuarios-direcciones', usuariosDireccionesRouter);
+
+app.use('/productos-filter-price', productosFilterRouter);
 
 app.use('/ordenes-productos', ordenesProductosRouter);
 
