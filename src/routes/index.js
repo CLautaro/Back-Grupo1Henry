@@ -12,6 +12,8 @@ import ordenesRouter from './OrdenesRouter.js';
 import productosRouter from './ProductosRouter.js';
 import usuariosDireccionesRouter from './UsuariosDireccionesRouter.js';
 
+import productosFilterRouter from './ProductosFilterRouter.js';
+
 import ordenesProductosRouter from './OrdenesProductosRouter.js';
 
 export {
@@ -28,6 +30,8 @@ export {
     ordenesRouter,
     productosRouter,
     usuariosDireccionesRouter,
+
+    productosFilterRouter,
 
     ordenesProductosRouter
 };
