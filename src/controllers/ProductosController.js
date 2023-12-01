@@ -6,12 +6,68 @@ const ERROR_UNIQUE_KEY_EXISTS = '23505';
 const db = await createConnection();
 
 const getAll = async (request, response) => {
-    const query = {
-        name: 'get-products',
-        text: 'SELECT * FROM productos'
-    };
+    if ( isNaN(request.query.precioMinimo) || isNaN(request.query.precioMaximo) ) {
+        response
+            .status(400)
+            .send(
+                JSON.stringify({ mensaje: "Los valores de precio no son válidos." })
+            );
+        return;
+    }
 
-    const result = await db.query(query);
+    const precioMinimo = parseInt(request.query.precioMinimo, 10);
+    const precioMaximo = parseInt(request.query.precioMaximo, 10);
+
+    if ( precioMinimo < 0 || precioMaximo < 0 ) {
+        response
+            .status(400)
+            .send(
+                JSON.stringify({ mensaje: "Los precios deben ser valores positivos." })
+            );
+        return;
+    }
+
+    if ( precioMinimo && precioMaximo && precioMinimo > precioMaximo ) {
+        response
+            .status(400)
+            .send(
+                JSON.stringify({ mensaje: "El rango de precios no es válido." })
+            );
+        return;
+    }
+
+    let sqlStatement = 'SELECT * FROM productos';
+
+    const sqlFilters = [];
+    const values = [];
+
+    // si hay parametros para filtrar entonces abrimos el where
+    if ( precioMinimo || precioMaximo) {
+        sqlStatement += ' WHERE ';
+    }
+
+    // agregamos cada parametro con la condicion y el valor
+    if ( precioMinimo ) {
+        sqlFilters.push('precio >=');
+        values.push(precioMinimo);
+    }
+
+    if ( precioMaximo ) {
+        sqlFilters.push('precio <=');
+        values.push(precioMaximo);
+    }
+
+    // armamos cada filtro y agregamos AND mientras todavia existan filtros por agregar
+    // esto no funciona para filtros del tipo OR
+    for ( let i = 0; i < sqlFilters.length; i++ ) {
+        sqlStatement += `${sqlFilters[i]} $${i + 1}`;
+
+        if ( sqlFilters[ i + 1 ] ) {
+            sqlStatement += ' AND ';
+        }
+    }
+
+    const result = await db.query(sqlStatement, values);
 
     response
         .status(200)
@@ -118,7 +174,7 @@ const update = async (request, response) => {
         url_imagen
      } = request.body;
 
-    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio || !stock || !url_imagen ) {
+    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio || stock === null || stock === undefined || stock < 0 || !url_imagen ) {
         response
             .status(400)
             .send(JSON.stringify({ mensaje: 'Faltan datos para actualizar el producto.' }));
