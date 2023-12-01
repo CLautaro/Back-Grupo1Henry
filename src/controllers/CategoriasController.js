@@ -1,4 +1,5 @@
-import { createConnection } from '../database/Connection.js'
+import { createConnection } from '../database/Connection.js';
+import CategoriasService from '../services/CategoriasService.js';
 
 const ERROR_UNIQUE_KEY_EXISTS = '23505';
 
@@ -20,13 +21,7 @@ const getAll = async (request, response) => {
 const getOne = async (request, response) => {
     const { id } = request.params;
     
-    const query = {
-        name: 'get-one-category',
-        text: 'SELECT * FROM categorias WHERE id_categoria = $1',
-        values: [ id ]
-    };
-
-    const result = await db.query(query);
+    const result = await CategoriasService.getOne(id);
 
     if (!result.rows.length) {
         response
@@ -38,6 +33,50 @@ const getOne = async (request, response) => {
     response
         .status(200)
         .send(result.rows[0]);
+};
+
+const getOneWithProducts = async (request, response) => {
+    const { id } = request.params;
+    
+    const category = await CategoriasService.getOne(id);
+
+    if (!category.rows.length) {
+        response
+            .status(404)
+            .send(JSON.stringify({ mensaje: 'La categoría no existe.' }));
+        return;
+    }
+
+    const query = {
+        name: 'get-products-from-one-category',
+        text: `
+            SELECT
+                p.id_producto,
+                p.sku,
+                p.nombre,
+                p.descripcion,
+                p.precio,
+                p.stock 
+            FROM categorias c
+            INNER JOIN sub_categorias sc ON c.id_categoria = sc.id_categoria
+            INNER JOIN productos p ON sc.id_sub_categoria = p.id_sub_categoria
+            WHERE c.id_categoria = $1
+        `,
+        values: [ id ]
+    };
+
+    const products = await db.query(query);
+
+    const result = category.rows[0];
+    
+    // unimos la categoria con sus productos
+    result.productos = [
+        ...products.rows
+    ];
+
+    response
+        .status(200)
+        .send(result);
 };
 
 const create = async (request, response) => {
@@ -159,6 +198,7 @@ const update = async (request, response) => {
 export default {
     getAll,
     getOne,
+    getOneWithProducts,
     create,
     remove,
     update
