@@ -15,7 +15,8 @@ import {
     ordenesRouter,
     productosRouter,
     usuariosDireccionesRouter,
-    ordenesProductosRouter
+    ordenesProductosRouter,
+    pagosRouter
 } from './routes/index.js'
 
 const {
@@ -69,6 +70,7 @@ app.use('/tipos-de-pago', tiposDePagoRouter);
 app.use('/subcategorias', subCategoriasRouter);
 app.use('/formas-de-pago', formasDePagoRouter);
 app.use('/usuarios', usuariosRouter);
+app.use('/pagos', pagosRouter);
 
 app.use('/ordenes', ordenesRouter);
 app.use('/productos', productosRouter);
