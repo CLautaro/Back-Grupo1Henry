@@ -26,7 +26,7 @@ const {
     AUTH_URL_CALLBACK
 } = process.env;
 
-const { auth, requiresAuth} = expressOpenidConnect;
+const { auth } = expressOpenidConnect;
 
 const app = express();
 
@@ -61,19 +61,19 @@ app.get('/login', (req, res) =>
 );
 
 app.use('/categorias', categoriasRouter);
-app.use('/emisoras-de-tarjetas', requiresAuth(), emisorasDeTarjetasRouter);
-app.use('/entidades-financieras', requiresAuth(), entidadesFinancierasRouter);
-app.use('/roles', requiresAuth(), rolesRouter);
-app.use('/tipos-de-pago', requiresAuth(), tiposDePagoRouter);
+app.use('/emisoras-de-tarjetas', emisorasDeTarjetasRouter);
+app.use('/entidades-financieras', entidadesFinancierasRouter);
+app.use('/roles', rolesRouter);
+app.use('/tipos-de-pago', tiposDePagoRouter);
 
 app.use('/subcategorias', subCategoriasRouter);
-app.use('/formas-de-pago', requiresAuth(), formasDePagoRouter);
-app.use('/usuarios', requiresAuth(), usuariosRouter);
+app.use('/formas-de-pago', formasDePagoRouter);
+app.use('/usuarios', usuariosRouter);
 
-app.use('/ordenes', requiresAuth(), ordenesRouter);
+app.use('/ordenes', ordenesRouter);
 app.use('/productos', productosRouter);
-app.use('/usuarios-direcciones', requiresAuth(), usuariosDireccionesRouter);
+app.use('/usuarios-direcciones', usuariosDireccionesRouter);
 
-app.use('/ordenes-productos', requiresAuth(), ordenesProductosRouter);
+app.use('/ordenes-productos', ordenesProductosRouter);
 
 export default app;
