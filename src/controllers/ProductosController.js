@@ -47,12 +47,13 @@ const create = async (request, response) => {
         sku,
         nombre,
         descripcion,
-        precio
+        precio,
+        url_imagen
      } = request.body;
 
     const stock = request.body.stock || 0;
 
-    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio ) {
+    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio || !url_imagen ) {
         response
             .status(400)
             .send(JSON.stringify({ mensaje: 'Faltan datos para crear el producto.' }));
@@ -61,8 +62,8 @@ const create = async (request, response) => {
 
     const query = {
         name: 'create-product',
-        text: 'INSERT INTO productos (id_sub_categoria, sku, nombre, descripcion, precio, stock) VALUES ($1, $2, $3, $4, $5, $6)',
-        values: [ id_sub_categoria, sku, nombre, descripcion, precio, stock ]
+        text: 'INSERT INTO productos (id_sub_categoria, sku, nombre, descripcion, precio, stock, url_imagen) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        values: [ id_sub_categoria, sku, nombre, descripcion, precio, stock, url_imagen ]
     };
 
     let result;
@@ -82,7 +83,6 @@ const create = async (request, response) => {
             .send(JSON.stringify({ mensaje: 'Ocurrió un error al crear el producto.', exception }));
         return;
     }
-
     response.status(201).send();
 };
 
@@ -103,7 +103,6 @@ const remove = async (request, response) => {
             .send(JSON.stringify({ mensaje: 'El producto no existe.' }));
         return;
     }
-
     response.status(204).send();
 };
 
@@ -115,10 +114,11 @@ const update = async (request, response) => {
         nombre,
         descripcion,
         precio,
-        stock
+        stock,
+        url_imagen
      } = request.body;
 
-    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio || !stock ) {
+    if ( !id_sub_categoria || !sku || !nombre || !descripcion || !precio || !stock || !url_imagen ) {
         response
             .status(400)
             .send(JSON.stringify({ mensaje: 'Faltan datos para actualizar el producto.' }));
@@ -127,8 +127,8 @@ const update = async (request, response) => {
 
     const query = {
         name: 'update-producto',
-        text: 'UPDATE productos SET id_sub_categoria = $2, sku = $3, nombre = $4, descripcion = $5, precio = $6, stock = $7 WHERE id_producto = $1',
-        values: [ id, id_sub_categoria, sku, nombre, descripcion, precio, stock ]
+        text: 'UPDATE productos SET id_sub_categoria = $2, sku = $3, nombre = $4, descripcion = $5, precio = $6, stock = $7, url_imagen = $8 WHERE id_producto = $1',
+        values: [ id, id_sub_categoria, sku, nombre, descripcion, precio, stock, url_imagen ]
     };
 
     let result;
@@ -177,5 +177,5 @@ export default {
     getOne,
     create,
     remove,
-    update
+    update
 };
