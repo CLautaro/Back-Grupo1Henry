@@ -8,17 +8,18 @@ mercadopago.configure({
   });
 
 const create = async(req, res) => {
+    const { id, nombre, precio, cantidad } = req.body;
     try {
         let preference = {
             items: [
                 {
-                    id: 'item-ID-1234',
-                    title: "CPU AMD",
+                    id: id,
+                    title: nombre,
                     picture_url: "https://http2.mlstatic.com/D_NQ_NP_744890-MLU72340463933_102023-O.webp",
-                    unit_price: 35900,
+                    unit_price: precio,
                     currency_id: "ARS",
-                    description: "CPU descrip",
-                    quantity: 1,
+                    description: "CPU description",
+                    quantity: cantidad,
                     category_id: 'art',
                 }
             ],
@@ -38,7 +39,7 @@ const create = async(req, res) => {
             // },
 
             back_urls: {
-                success: "http://localhost:3000/success",
+                success: "http://localhost:3000/productDetail",
                 failure: "http://localhost:3000/failure",
                 pending: 'http://www.pending.com'
             },
