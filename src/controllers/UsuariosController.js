@@ -1,6 +1,8 @@
 const getAll = () => ({});
 const getOne = () => ({});
-const create = () => ({});
+const create = async (request, response) => {
+    response.status(201).json(request.body);
+};
 const remove = () => ({});
 const update = () => ({});
 

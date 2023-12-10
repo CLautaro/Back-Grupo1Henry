@@ -15,6 +15,8 @@ import usuariosDireccionesRouter from './UsuariosDireccionesRouter.js';
 
 import ordenesProductosRouter from './OrdenesProductosRouter.js';
 
+import authRouter from './AuthRouter.js';
+
 export {
     categoriasRouter,
     emisorasDeTarjetasRouter,
@@ -29,6 +31,10 @@ export {
     ordenesRouter,
     productosRouter,
     usuariosDireccionesRouter,
+
     ordenesProductosRouter,
+
     pagosRouter,
+    
+    authRouter
 };
