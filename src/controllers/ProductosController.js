@@ -1,4 +1,4 @@
-import { createConnection } from '../database/Connection.js'
+import { createConnection } from '../database/Connection.js';
 
 const ERROR_UNIQUE_KEY_NOT_FOUND = '23503';
 const ERROR_UNIQUE_KEY_EXISTS = '23505';
