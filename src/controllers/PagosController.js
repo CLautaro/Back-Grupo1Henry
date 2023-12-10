@@ -25,21 +25,14 @@ const create = async(req, res) => {
             ],
 
             // payer: {
-            //     name: 'João',
+            //     name: 'Josue',
             //     surname: 'Silva',
             //     email: 'user@email.com',
-            //     phone: {
-            //       area_code: 11,
-            //       number: 4444-4444
-            //     },
-            //     identification: {
-            //       type: 'CPF',
-            //       number: 19119119100
-            //     },
+               
             // },
 
             back_urls: {
-                success: "http://localhost:3000/productDetail",
+                success: "http://localhost:3001/detalle",
                 failure: "http://localhost:3000/failure",
                 pending: 'http://www.pending.com'
             },
@@ -48,8 +41,8 @@ const create = async(req, res) => {
         };
 
         const response = await mercadopago.preferences.create(preference);
-
-        console.log(response);
+        
+        console.log(response.body);
         res.status(200).json(response.response.init_point);
 
     }catch(error){

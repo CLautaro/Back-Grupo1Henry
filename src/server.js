@@ -14,7 +14,8 @@ import {
     productosRouter,
     usuariosDireccionesRouter,
     ordenesProductosRouter,
-    pagosRouter
+    pagosRouter,
+    detallePagosRouter
 } from './routes/index.js'
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/subcategorias', subCategoriasRouter);
 app.use('/formas-de-pago', formasDePagoRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/pagos', pagosRouter);
+app.use('/detalle', detallePagosRouter);
 
 app.use('/ordenes', ordenesRouter);
 app.use('/productos', productosRouter);

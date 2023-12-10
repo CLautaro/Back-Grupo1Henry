@@ -8,6 +8,7 @@ import formasDePagoRouter from './FormasDePagoRouter.js';
 import subCategoriasRouter from './SubCategoriasRouter.js';
 import usuariosRouter from './UsuariosRouter.js';
 
+import detallePagosRouter from './DetallePagosRuoters.js';
 import pagosRouter from './PagosRouter.js';
 import ordenesRouter from './OrdenesRouter.js';
 import productosRouter from './ProductosRouter.js';
@@ -31,4 +32,5 @@ export {
     usuariosDireccionesRouter,
     ordenesProductosRouter,
     pagosRouter,
+    detallePagosRouter,
 };
