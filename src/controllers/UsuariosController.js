@@ -4,7 +4,18 @@ const db = await createConnection();
 
 const ERROR_UNIQUE_KEY_EXISTS = '23505';
 
-const getAll = () => ({});
+const getAll = async (request, response) => {
+    const query = {
+        name: 'get-users',
+        text: 'SELECT * FROM usuarios'
+    };
+
+    const result = await db.query(query);
+
+    response
+        .status(200)
+        .send(result.rows);
+};
 
 const getOne = async (request, response) => {
     const { id } = request.params;
