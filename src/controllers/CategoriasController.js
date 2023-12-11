@@ -79,6 +79,45 @@ const getOneWithProducts = async (request, response) => {
         .send(result);
 };
 
+const getOneWithSubCategories = async (request, response) => {
+    const { id } = request.params;
+    
+    const category = await CategoriasService.getOne(id);
+
+    if (!category.rows.length) {
+        response
+            .status(404)
+            .send(JSON.stringify({ mensaje: 'La categoría no existe.' }));
+        return;
+    }
+
+    const query = {
+        name: 'get-subcategories-from-one-category',
+        text: `
+            SELECT
+                sc.id_sub_categoria,
+                sc.nombre
+            FROM categorias c
+            INNER JOIN sub_categorias sc ON c.id_categoria = sc.id_categoria
+            WHERE c.id_categoria = $1
+        `,
+        values: [ id ]
+    };
+
+    const subCategories = await db.query(query);
+
+    const result = category.rows[0];
+    
+    // unimos la categoria con sus subcategorias
+    result.subCategorias = [
+        ...subCategories.rows
+    ];
+
+    response
+        .status(200)
+        .send(result);
+};
+
 const create = async (request, response) => {
     const { nombre } = request.body;
 
@@ -199,6 +238,7 @@ export default {
     getAll,
     getOne,
     getOneWithProducts,
+    getOneWithSubCategories,
     create,
     remove,
     update
