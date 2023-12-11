@@ -51,7 +51,7 @@ app.use('/tipos-de-pago', tiposDePagoRouter);
 app.use('/subcategorias', subCategoriasRouter);
 app.use('/formas-de-pago', checkJwt, formasDePagoRouter);
 app.use('/usuarios', checkJwt, usuariosRouter);
-app.use('/pagos', checkJwt, pagosRouter);
+app.use('/pagos', pagosRouter);
 
 app.use('/ordenes', checkJwt, ordenesRouter);
 app.use('/productos', productosRouter);
