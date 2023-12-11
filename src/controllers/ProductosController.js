@@ -6,25 +6,51 @@ const ERROR_UNIQUE_KEY_EXISTS = '23505';
 const db = await createConnection();
 
 const getAll = async (request, response) => {
-    if ( isNaN(request.query.precioMinimo) || isNaN(request.query.precioMaximo) ) {
-        response
-            .status(400)
-            .send(
-                JSON.stringify({ mensaje: "Los valores de precio no son válidos." })
-            );
-        return;
+    let precioMinimo;
+    let precioMaximo;
+
+    if ( request.query.precioMinimo ) {
+        if ( isNaN(request.query.precioMinimo) ) {
+            response
+                .status(400)
+                .send(
+                    JSON.stringify({ mensaje: "Los valores de precio no son válidos." })
+                );
+            return;
+        }
+
+        precioMinimo = parseInt(request.query.precioMinimo, 10);
+
+        if ( precioMinimo < 0 ) {
+            response
+                .status(400)
+                .send(
+                    JSON.stringify({ mensaje: "Los precios deben ser valores positivos." })
+                );
+            return;
+        }
     }
 
-    const precioMinimo = parseInt(request.query.precioMinimo, 10);
-    const precioMaximo = parseInt(request.query.precioMaximo, 10);
-
-    if ( precioMinimo < 0 || precioMaximo < 0 ) {
-        response
-            .status(400)
-            .send(
-                JSON.stringify({ mensaje: "Los precios deben ser valores positivos." })
-            );
-        return;
+    if ( request.query.precioMaximo ) {
+        if ( isNaN(request.query.precioMaximo) ) {
+            response
+                .status(400)
+                .send(
+                    JSON.stringify({ mensaje: "Los valores de precio no son válidos." })
+                );
+            return;
+        }
+    
+        precioMaximo = parseInt(request.query.precioMaximo, 10);
+    
+        if ( precioMaximo < 0 ) {
+            response
+                .status(400)
+                .send(
+                    JSON.stringify({ mensaje: "Los precios deben ser valores positivos." })
+                );
+            return;
+        }
     }
 
     if ( precioMinimo && precioMaximo && precioMinimo > precioMaximo ) {

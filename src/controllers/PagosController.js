@@ -5,7 +5,7 @@ dotenv.config();
 
 mercadopago.configure({
     access_token: process.env.ACCESS_TOKE || "",
-  });
+});
 
 const create = async(req, res) => {
     const { id, nombre, precio, cantidad } = req.body;
