@@ -25,6 +25,7 @@ mercadopago.configure({
         cantidad: dataItems.quantity
       };
       
+      console.log(responseData);
       res.status(200).json(responseData);
     }
     catch(error){

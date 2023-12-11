@@ -15,7 +15,6 @@ const create = async(req, res) => {
                 {
                     id: id,
                     title: nombre,
-                    picture_url: "https://http2.mlstatic.com/D_NQ_NP_744890-MLU72340463933_102023-O.webp",
                     unit_price: precio,
                     currency_id: "ARS",
                     description: "CPU description",
@@ -32,7 +31,7 @@ const create = async(req, res) => {
             // },
 
             back_urls: {
-                success: "http://localhost:3001/detalle",
+                success: "http://localhost:3000/productos",
                 failure: "http://localhost:3000/failure",
                 pending: 'http://www.pending.com'
             },
@@ -42,7 +41,7 @@ const create = async(req, res) => {
 
         const response = await mercadopago.preferences.create(preference);
         
-        console.log(response.body);
+        //console.log(response.body);
         res.status(200).json(response.response.init_point);
 
     }catch(error){
