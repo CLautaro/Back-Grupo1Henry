@@ -10,5 +10,6 @@ router.get('/:id/productos', CategoriasController.getOneWithProducts);
 router.post('/', CategoriasController.create);
 router.delete('/:id', CategoriasController.remove);
 router.put('/:id', CategoriasController.update);
+router.get('/:id/subcategorias', CategoriasController.getOneWithSubCategories);
 
 export default router;

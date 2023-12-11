@@ -19,7 +19,7 @@ import {
     authRouter
 } from './routes/index.js'
 
-import { auth, requiredScopes } from 'express-oauth2-jwt-bearer';
+import { auth } from 'express-oauth2-jwt-bearer';
 
 const {
     AUTH_AUDIENCE_URL,
@@ -32,6 +32,11 @@ const checkJwt = auth({
     audience: AUTH_AUDIENCE_URL,
     issuerBaseURL: AUTH_ISSUER_BASE_URL
 });
+
+const checkPermissionsMiddleware = (request, result, next) => {
+    console.log('headers', request.headers);
+    next();
+};
 
 app.use(express.json());
 app.use(cors());
