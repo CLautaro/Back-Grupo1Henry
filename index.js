@@ -1,5 +1,10 @@
-const server = require("./src/server")
+import app from './src/server.js';
+import expressListRoutes from 'express-list-routes';
 
-server.listen(3001, () => {
-    console.log("Server listening on port 3001");
-  });
+const port = 3001;
+
+expressListRoutes(app);
+
+app.listen(port, () => {
+  console.info(`Server listening on port ${port}`);
+});
